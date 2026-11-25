@@ -1,0 +1,12 @@
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+import Game from './Game.jsx'
+import StormUI from './StormUI.jsx'
+import './storm.css'
+
+createRoot(document.getElementById('root')).render(
+  <>
+    <Game />
+    <StormUI />
+  </>
+)
