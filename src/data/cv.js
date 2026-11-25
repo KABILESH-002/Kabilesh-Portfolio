@@ -11,6 +11,8 @@ export const person = {
   phone: '+94 78 632 2193',
   phoneHref: 'tel:+94786322193',
   cv: './Kabileshwar-CV.pdf',
+  // Add profile links here, e.g. { label: 'GitHub', href: 'https://github.com/you' }
+  links: [{ label: 'GitHub', href: 'https://github.com/KABILESH-002' }],
   summary:
     'Final year BSc (Hons) Computer Science undergraduate at the Informatics Institute of Technology (IIT), affiliated with the University of Westminster, with practical experience in UI/UX design, full-stack development and programming. Experienced in developing user-centered digital solutions through academic and freelance projects, including educational technology and an AI-based landslide prediction and route-safety project. Interested in applying problem-solving skills, creativity and technical skills to build accessible, responsive and impactful software.',
 }
