@@ -38,8 +38,8 @@ export default function StormUI() {
   return (
     <div className={`ui phase-${s.phase}`}>
       <header className="top">
-        <a href="./index.html#slopeguard" className="back">
-          ← Portfolio
+        <a href="./arcade.html" className="back">
+          ← Arcade
         </a>
         <div className="title">
           <b>STORM MODE</b>

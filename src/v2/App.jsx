@@ -4,6 +4,7 @@ import { person, education, research, projects, skills, experience, references }
 import Particles from './particles/Particles.jsx'
 import Chapter, { usePinProgress } from './Chapter.jsx'
 import { STORIES } from './stories.js'
+import { GAMES } from '../arcade/games.js'
 import { SlopeGuardVisual, slopeguardProgress, SchedulerVisual, WeatherVisual, HungerVisual, HydroVisual } from './visuals.jsx'
 
 const byId = Object.fromEntries(projects.map((p) => [p.id, p]))
@@ -17,6 +18,8 @@ const slope = {
   points: research.cvPoints,
   tags: ['AI', 'Machine learning', 'Geospatial', 'Risk prediction', 'Safe routing'],
 }
+const gameFor = Object.fromEntries(GAMES.map((g) => [g.projectHref.split('#')[1], g]))
+const gameHref = (g) => g.href || `./arcade.html#${g.id}`
 const CHAPTERS = [
   { p: slope, theme: 'slopeguard', shape: 'terrain', storyShape: 'dust', Visual: SlopeGuardVisual, full: true, onStoryProgress: slopeguardProgress, storyAlpha: 0 },
   { p: byId.scheduler, theme: 'scheduler', shape: 'bubble', Visual: SchedulerVisual },
@@ -78,17 +81,10 @@ export default function App() {
         {CHAPTERS.map((c, i) => (
           <Chapter key={c.p.id} n={i + 1} project={c.p} theme={c.theme} shape={c.shape} storyShape={c.storyShape} storyAlpha={c.storyAlpha} steps={STORIES[c.p.id]} Visual={c.Visual} full={c.full} onStoryProgress={c.onStoryProgress} coverX={i % 2 ? -2.9 : 2.9}>
             {c.p.id === 'slopeguard' && <ResearchDetails />}
-            {c.p.id === 'slopeguard' && (
-              <a className="stormcta" href="./storm.html">
-                <span>
-                  <small>Play it · 5 missions · browser & VR</small>
-                  <b>Storm Mode: plan evacuations through five storms and try to beat SlopeGuard AI</b>
-                </span>
-                <i>⚡</i>
-              </a>
-            )}
+            {gameFor[c.p.id] && <PlayCta g={gameFor[c.p.id]} />}
           </Chapter>
         ))}
+        <ArcadeSection />
         <Beyond />
         <Skills />
         <Education />
@@ -118,8 +114,8 @@ function Nav() {
           <button className="nav__btn" onClick={() => setOpen(true)}>
             Chapters
           </button>
-          <a className="nav__btn nav__btn--storm" href="./storm.html">
-            ⚡ Storm Mode
+          <a className="nav__btn nav__btn--storm" href="./arcade.html">
+            🎮 Arcade
           </a>
           <a className="nav__btn nav__btn--solid" href={person.cv} download>
             CV ↓
@@ -131,7 +127,7 @@ function Nav() {
           <button className="menu__close" onClick={() => setOpen(false)}>
             Close ✕
           </button>
-          {[['about', 'About me'], ...CHAPTERS.map((c) => [c.p.id, c.p.title]), ['beyond', 'Experience'], ['skills', 'Skills'], ['education', 'Education & references'], ['contact', 'Contact']].map(([id, l], i) => (
+          {[['about', 'About me'], ...CHAPTERS.map((c) => [c.p.id, c.p.title]), ['arcade', 'Arcade · mini-games'], ['beyond', 'Experience'], ['skills', 'Skills'], ['education', 'Education & references'], ['contact', 'Contact']].map(([id, l], i) => (
             <a
               key={id}
               href={`#${id}`}
@@ -333,6 +329,53 @@ function ResearchDetails() {
   )
 }
 
+/* ---------------- arcade: one mini-game per project ---------------- */
+function PlayCta({ g }) {
+  return (
+    <a className="stormcta" href={gameHref(g)} style={{ '--ga': g.theme.accent }}>
+      <span>
+        <small>Play it · {g.meta}</small>
+        <b>
+          {g.title}: {g.tagline}
+        </b>
+      </span>
+      <i>{g.icon}</i>
+    </a>
+  )
+}
+
+function ArcadeSection() {
+  return (
+    <section className="arcade" id="arcade" data-shape="cube" data-theme="intro" data-alpha="0.3" data-x="3.2" data-malpha="0.15">
+      <div className="arcade__head reveal">
+        <div className="kicker">Arcade · mini-games</div>
+        <h2>
+          Don’t just read about them. <em>Play them.</em>
+        </h2>
+        <p>Each project comes with a short game built around its core idea. Most take a minute or two.</p>
+      </div>
+      <ol className="arcade__grid">
+        {GAMES.map((g, i) => (
+          <li key={g.id} className="reveal" style={{ '--i': i, '--ga': g.theme.accent, '--gb': g.theme.bg }}>
+            <a href={gameHref(g)}>
+              <span className="arcade__icon" aria-hidden="true">
+                {g.icon}
+              </span>
+              <small>{g.project}</small>
+              <b>{g.title}</b>
+              <span className="arcade__tag">{g.tagline}</span>
+              <span className="arcade__meta">{g.meta}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+      <a className="btn arcade__all reveal" href="./arcade.html">
+        Open the Arcade →
+      </a>
+    </section>
+  )
+}
+
 /* ---------------- experience: horizontal pinned scroll ---------------- */
 function Beyond() {
   const ref = useRef()
@@ -475,9 +518,9 @@ function Contact() {
             Download CV
           </a>
         </div>
-        <a className="city reveal" href="./storm.html">
-          <small>Bonus game · browser & VR · from someone who builds XR in Unity + XR Interaction Toolkit</small>
-          <b>⚡ Storm Mode: can you beat my AI? →</b>
+        <a className="city reveal" href="./arcade.html">
+          <small>Bonus · five mini-games, one per project · Storm Mode also plays in VR</small>
+          <b>🎮 Visit the Arcade: can you beat my projects? →</b>
         </a>
       </div>
     </section>

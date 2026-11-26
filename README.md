@@ -17,9 +17,27 @@ The site is told in chapters. A single field of about 14,000 particles runs thro
 | Experience | sphere | violet | Horizontal-scroll freelance cards |
 | Skills | lattice cube | violet | Kinetic skill marquees + full grouped list |
 | Education & references | sphere | violet | Timeline |
-| Contact | HELLO | ink & orange | Contact, CV, link to Storm Mode |
+| Arcade | lattice cube | ink | Five game cards, one per project, linking to the Arcade |
+| Contact | HELLO | ink & orange | Contact, CV, link to the Arcade |
 
 Each chapter has a cover, a pinned "how it works" story (one step per screen), and a "project file" with every CV detail. The SlopeGuard file also includes the research questions, approach, stack, study area and progress.
+
+## 🎮 Arcade (`arcade.html`): one mini-game per project
+
+The portfolio has a full **Arcade** with five short games, each built around the core idea of a project on the CV. Every chapter also ends with a "Play it" card for its game, and the nav has an Arcade button.
+
+| Game | Project | How it plays |
+| --- | --- | --- |
+| ⚡ Storm Mode | SlopeGuard AI | 3D evacuation planning vs the AI, browser & VR (see below) |
+| 🎓 Study Sprint | Scheduler AI | 60 s chat-style quiz with an AI tutor. Climb from Grade 6 to A/L, build streaks, use 3 hints |
+| ☔ Radar Call | Weather Forecast Website | Read a radar loop over Sri Lanka and forecast which towns get rain; results shown as a rainfall chart. 6 rounds |
+| 🍱 Food Link | Hunger SL | 90 s dispatch game: drag donors to families (vegetarian needs, freshness, 3 volunteers) |
+| 💧 Leak Patrol | Hydro Alert | 75 s: fix leaks before they burst, keep the tank up, catch rain drops and send emergency alerts to the right zone |
+
+- Routing is by hash: `arcade.html` is the hub, `arcade.html#study`, `#radar`, `#food`, `#leak` open a game.
+- Every game has a how-to screen, a results screen with stars, rank, stats, badges and "how this connects to the project", and a best score saved in the browser.
+- Sounds are generated with WebAudio. The games work with touch, mouse and keyboard (Study Sprint 1–4 and H, Leak Patrol alerts 1–3), and the layouts adapt to phones.
+- Code: `src/arcade/` — `games.js` (line-up, themes, ranks), `Hub.jsx`, `Shell.jsx` (shared intro/results frame), `games/*.jsx`, `sfx.js`, `best.js`, `arcade.css`.
 
 ## ⚡ Storm Mode (`storm.html`): a game about the research
 
@@ -39,8 +57,8 @@ Game code lives in `src/storm/`: `Game.jsx` (procedural world, 3D scene, VR, gam
 
 ```bash
 npm install
-npm run dev        # http://localhost:5173 (portfolio), /storm.html (Storm Mode)
-npm run build      # production build in /dist (both pages)
+npm run dev        # http://localhost:5173 (portfolio), /arcade.html (Arcade), /storm.html (Storm Mode)
+npm run build      # production build in /dist (all three pages)
 npm run preview
 ```
 
@@ -60,6 +78,7 @@ Requires Node 18 or newer. To deploy on Vercel or Netlify, use build command `np
 | SlopeGuard 3D terrain & routing | `src/site/Terrain.jsx`, `src/site/terrainGen.js` |
 | CV download | `public/Kabileshwar-CV.pdf` |
 | Storm Mode game | `src/storm/` |
+| Arcade & the other mini-games | `src/arcade/` |
 
 ## Notes
 

@@ -8,7 +8,7 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1600,
     rollupOptions: {
-      input: { main: 'index.html', storm: 'storm.html' },
+      input: { main: 'index.html', storm: 'storm.html', arcade: 'arcade.html' },
       output: {
         manualChunks: {
           three: ['three'],
